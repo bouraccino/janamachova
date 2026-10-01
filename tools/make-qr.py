@@ -39,6 +39,9 @@ payload = f'SPD*1.0*ACC:{iban}*RN:{a.rn[:35].upper()}*CC:CZK*MSG:{a.msg[:60].upp
 svg = segno.make(payload, error='m').svg_inline(scale=1, dark='#121214', finder_dark='#8f5a1c', light=None, omitsize=True, svgclass=None, lineclass=None)
 svg = svg.replace('<svg ', '<svg role="img" aria-label="QR platba: ' + iban + '" ', 1)
 
+# barvy řídí CSS (světlý/tmavý režim): viz .pay__qr v css/style.css
+svg = svg.replace('stroke="#121214"', 'stroke="var(--qr-dark)"').replace('stroke="#8f5a1c"', 'stroke="var(--qr-finder)"')
+
 html = open(a.file, encoding='utf-8').read()
 html, n = re.subn(r'<!-- QR:start -->.*?<!-- QR:end -->', '<!-- QR:start -->' + svg + '<!-- QR:end -->', html, flags=re.S)
 if n != 1:

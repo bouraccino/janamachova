@@ -678,26 +678,22 @@ a.contact__value:hover { color: var(--accent-text); }
 .pay__copy { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .pay__copy .copy { margin-top: 0; }
 .pay__qr {
-  /* scanners want dark modules on a light ground, in both themes: fixed stone tile */
-  position: relative; background: #ece8e1; padding: 18px; border-radius: 2px;
+  /* light mode: ink modules on stone. dark mode: inverted (stone modules on near-black) */
+  --qr-tile: #ece8e1; --qr-dark: #121214; --qr-finder: #8f5a1c; --qr-line: rgba(20, 20, 22, .14);
+  position: relative; background: var(--qr-tile); padding: 20px 20px 26px; border-radius: 3px;
   width: clamp(176px, 20vw, 240px); height: auto; justify-self: end;
-  box-shadow: inset 0 0 0 1px rgba(20, 20, 22, .12);
-  /* industrial corner brackets */
-  background-image:
-    linear-gradient(#8f5a1c, #8f5a1c), linear-gradient(#8f5a1c, #8f5a1c),
-    linear-gradient(#8f5a1c, #8f5a1c), linear-gradient(#8f5a1c, #8f5a1c),
-    linear-gradient(#8f5a1c, #8f5a1c), linear-gradient(#8f5a1c, #8f5a1c),
-    linear-gradient(#8f5a1c, #8f5a1c), linear-gradient(#8f5a1c, #8f5a1c);
-  background-repeat: no-repeat;
-  background-size: 22px 2px, 2px 22px, 22px 2px, 2px 22px, 22px 2px, 2px 22px, 22px 2px, 2px 22px;
-  background-position: left 6px top 6px, left 6px top 6px, right 6px top 6px, right 6px top 6px, left 6px bottom 6px, left 6px bottom 6px, right 6px bottom 6px, right 6px bottom 6px;
+  box-shadow: inset 0 0 0 1px var(--qr-line);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pay__qr { --qr-tile: #0e0e10; --qr-dark: #ece8e1; --qr-finder: #d89b4a; --qr-line: rgba(241, 238, 232, .14); }
+}
+:root[data-theme="dark"] .pay__qr { --qr-tile: #0e0e10; --qr-dark: #ece8e1; --qr-finder: #d89b4a; --qr-line: rgba(241, 238, 232, .14); }
 .pay__qr::after {
   content: "QR PLATBA · CZK";
-  position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%);
-  font-family: var(--font-mono); font-size: .56rem; letter-spacing: .18em; color: #8f5a1c; white-space: nowrap;
+  position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: .56rem; letter-spacing: .18em; color: var(--qr-finder); white-space: nowrap; opacity: .85;
 }
-.pay__qr img, .pay__qr svg { width: 100%; height: auto; display: block; margin-bottom: 8px; }
+.pay__qr img, .pay__qr svg { width: 100%; height: auto; display: block; }
 .pay__qr svg { width: 100%; height: auto; display: block; }
 .pay__billing { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(13ch, 1fr)); gap: 12px 20px; }
 .pay__billing dt { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
