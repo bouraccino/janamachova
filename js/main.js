@@ -17,7 +17,7 @@
   if (reduceMotion) {
     setReady();
   } else {
-    var minDelay = new Promise(function (r) { setTimeout(r, 650); });
+    var minDelay = new Promise(function (r) { setTimeout(r, 400); });
     var fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     Promise.all([minDelay, fonts]).then(setReady, setReady);
     setTimeout(setReady, 2200); /* hard cap, whatever happens */
@@ -44,34 +44,64 @@
     lastY = y;
   }
   onScrollHeader();
+  header.addEventListener('focusin', function () { header.classList.remove('is-hidden'); });
 
   /* ---------- mobile menu ---------- */
   var burger = document.getElementById('burger');
   var menu = document.getElementById('menu');
+  var behind = [].slice.call(document.querySelectorAll('#obsah, footer, .skip')); /* covered by the open menu */
   function setMenu(open) {
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     burger.setAttribute('aria-label', open ? 'Zavřít menu' : 'Otevřít menu');
     menu.classList.toggle('is-open', open);
     if (open) menu.removeAttribute('inert'); else menu.setAttribute('inert', '');
+    behind.forEach(function (el) { if (open) el.setAttribute('inert', ''); else el.removeAttribute('inert'); });
     document.body.classList.toggle('menu-open', open);
     if (open) header.classList.remove('is-hidden');
   }
   burger.addEventListener('click', function () { setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') { setMenu(false); burger.focus(); } });
-  window.matchMedia('(min-width: 900px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
+  var wideQuery = window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
+  if (wideQuery) {
+    var onWide = function (e) { if (e.matches) setMenu(false); };
+    if (wideQuery.addEventListener) wideQuery.addEventListener('change', onWide);
+    else if (wideQuery.addListener) wideQuery.addListener(onWide);
+  }
 
   /* ---------- reveal on scroll ---------- */
   var reveals = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  var inHero = function (el) { return !!el.closest('.hero'); };
+  /* Hero children sit in the first viewport by design; CSS holds them until .is-ready, so the stagger is preserved. */
+  reveals.filter(inHero).forEach(function (el) { el.classList.add('is-visible'); });
+  var scrollReveals = reveals.filter(function (el) { return !inHero(el); });
   if ('IntersectionObserver' in window && !reduceMotion) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
-    reveals.forEach(function (el) { io.observe(el); });
+    scrollReveals.forEach(function (el) {
+      /* whatever is already on screen (restored scroll position, hash) shows at once */
+      var r = el.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) el.classList.add('is-visible');
+      else io.observe(el);
+    });
   } else {
-    reveals.forEach(function (el) { el.classList.add('is-visible'); });
+    scrollReveals.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* ---------- marquee pause ---------- */
+  var marquee = document.querySelector('.marquee');
+  var marqueeToggle = document.getElementById('marqueeToggle');
+  if (marquee && marqueeToggle && !reduceMotion) {
+    marqueeToggle.hidden = false;
+    marqueeToggle.addEventListener('click', function () {
+      var paused = !marquee.classList.contains('is-paused');
+      marquee.classList.toggle('is-paused', paused);
+      marqueeToggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      marqueeToggle.textContent = paused ? 'Spustit' : 'Pozastavit';
+    });
   }
 
   /* ---------- parallax on photo bands ---------- */
@@ -103,27 +133,7 @@
     if (el.getAttribute('data-count') === 'years') return Math.max(25, new Date().getFullYear() - 2000);
     return parseInt(el.getAttribute('data-count'), 10) || 0;
   }
-  function runCounter(el) {
-    var target = targetFor(el);
-    if (reduceMotion) { el.textContent = String(target); return; }
-    var start = null, dur = 1300;
-    function step(ts) {
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / dur);
-      var eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = String(Math.round(eased * target));
-      if (t < 1) window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
-  }
-  if ('IntersectionObserver' in window) {
-    var cio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { runCounter(en.target); cio.unobserve(en.target); } });
-    }, { threshold: 0.4 });
-    counters.forEach(function (el) { cio.observe(el); });
-  } else {
-    counters.forEach(function (el) { el.textContent = String(targetFor(el)); });
-  }
+  counters.forEach(function (el) { el.textContent = String(targetFor(el)); });
 
   /* ---------- copy buttons ---------- */
   var canCopy = !!(navigator.clipboard && navigator.clipboard.writeText);
@@ -174,16 +184,21 @@
   /* ---------- Czech typography: no line break after one-letter words ---------- */
   var main = document.getElementById('obsah');
   if (main && window.NodeFilter) {
-    var re = /(^|[\s(–—])([kKsSvVzZoOuUaAiI])\s(?=\S)/g;
+    var reTest = /(^|[\s(–—„])[kKsSvVzZoOuUaAiI]\s(?=\S)/;
     var walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         var p = n.parentNode && n.parentNode.nodeName;
         if (p === 'SCRIPT' || p === 'STYLE' || p === 'TIME') return NodeFilter.FILTER_REJECT;
-        return re.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        return reTest.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
       }
     });
     var nodes = [], n;
     while ((n = walker.nextNode())) nodes.push(n);
-    nodes.forEach(function (node) { node.nodeValue = node.nodeValue.replace(re, '$1$2 '); });
+    nodes.forEach(function (node) {
+      var s = node.nodeValue, prev;
+      /* repeat so that "a i fyzické" binds both words */
+      do { prev = s; s = s.replace(/(^|[\s(–—„])([kKsSvVzZoOuUaAiI])\s(?=\S)/g, '$1$2 '); } while (s !== prev);
+      if (s !== node.nodeValue) node.nodeValue = s;
+    });
   }
 })();

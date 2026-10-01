@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Vygeneruje QR Platbu (formát SPAYD) jako inline SVG a vloží ji do index.html.
+"""Vygeneruje QR platbu (formát SPAYD) jako inline SVG a vloží ji do index.html.
 
 Použití:
     pip install segno
@@ -37,7 +37,7 @@ import segno
 iban = to_iban(a.account)
 payload = f'SPD*1.0*ACC:{iban}*RN:{a.rn[:35].upper()}*CC:CZK*MSG:{a.msg[:60].upper()}'
 svg = segno.make(payload, error='m').svg_inline(scale=1, dark='#121214', light=None, omitsize=True, svgclass=None, lineclass=None)
-svg = svg.replace('<svg ', '<svg role="img" aria-label="QR Platba: ' + iban + '" ', 1)
+svg = svg.replace('<svg ', '<svg role="img" aria-label="QR platba: ' + iban + '" ', 1)
 
 html = open(a.file, encoding='utf-8').read()
 html, n = re.subn(r'<!-- QR:start -->.*?<!-- QR:end -->', '<!-- QR:start -->' + svg + '<!-- QR:end -->', html, flags=re.S)
@@ -45,6 +45,8 @@ if n != 1:
     sys.exit('Blok <!-- QR:start --> … <!-- QR:end --> nenalezen.')
 html = re.sub(r'(<dd class="pay__iban">).*?(</dd>)', r'\g<1>' + group4(iban) + r'\g<2>', html, flags=re.S)
 html = re.sub(r'(<dd class="pay__acc">).*?(</dd>)', r'\g<1>' + a.account + r'\g<2>', html, flags=re.S)
-html = html.replace('<span class="pay__sample">VZOR – doplnit číslo účtu</span>', '')
+# tlačítka „Kopírovat …“ musí nést totéž, co je vidět
+html = re.sub(r'data-copy="[^"]*"(?=[^>]*>Kopírovat číslo účtu<)', 'data-copy="' + a.account + '"', html)
+html = re.sub(r'data-copy="[^"]*"(?=[^>]*>Kopírovat IBAN<)', 'data-copy="' + iban + '"', html)
 open(a.file, 'w', encoding='utf-8').write(html)
 print('OK:', payload)

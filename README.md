@@ -2,7 +2,7 @@ Toto repo delala cele Ajka a dal jsem ho verejne, jenom proto, abych mel pages z
 
 # janamachova.cz
 
-Web Ing. Jany Machové, soudní znalkyně pro obor ekonomika, odvětví ceny a odhady nemovitostí (Ostrava).
+Web Ing. Jany Machové, soudního znalce pro obor ekonomika, odvětví ceny a odhady nemovitostí (Ostrava).
 
 Statický web bez databáze a bez build kroku: jeden `index.html`, CSS, JS, fotky a písma. Nasadí se kamkoli, kde se dají hostovat soubory.
 
@@ -13,7 +13,8 @@ index.html        celý web (jedna stránka s kotvami)
 404.html          chybová stránka
 css/style.css     styly
 css/fonts.css     @font-face pro lokálně hostovaná písma
-fonts/            Archivo, Instrument Serif, IBM Plex Mono (woff2, latin + latin-ext)
+fonts/            IBM Plex Sans (variable 100–700), IBM Plex Mono 400/500, IBM Plex Serif Italic 400 (woff2, latin + latin-ext)
+img/icon.svg, img/apple-touch-icon.png, img/icon-192.png, favicon.ico   ikony webu
 img/              fotky Ostravy v několika velikostech (WebP), portrét jana-machova-400.webp, og-image.jpg pro sdílení
 js/main.js        animace, mobilní menu, parallax, kopírování kontaktů (web funguje i bez JS)
 CNAME             doména pro GitHub Pages
@@ -23,8 +24,9 @@ robots.txt
 ## Úprava obsahu
 
 Veškerý text je přímo v `index.html`, sekce jsou označené komentáři (`<!-- ===== HERO ===== -->` atd.).
-Telefon, e‑mail a adresa jsou v hlavičce, v hero, v mobilním menu a v sekci Kontakt – při změně upravte všechna místa
-(nebo vyhledejte `604 163 806`).
+Telefon, e‑mail a adresa jsou v hlavičce, v hero, v mobilním menu, v sekci Kontakt, ve fakturačních údajích v kartě
+Platba, v JSON-LD (`<script type="application/ld+json">` v hlavičce) a v `<meta name="description">` – při změně upravte
+všechna místa (nebo vyhledejte `604 163 806`, `volny.cz`, `Alšova`).
 
 Fotky: nahraďte soubory v `img/` stejnými názvy, nebo upravte `srcset` u příslušného `<img>`.
 
@@ -61,12 +63,13 @@ stejně jako zmínka o budově katastrálního úřadu.
 
 V sekci Kontakt je vložená mapa Google (iframe bez API klíče). Načítá se z google.com, tedy s cookies Googlu –
 pokud by to vadilo, stačí iframe nahradit odkazem, který je pod mapou.
-Nové sekce, které je dobré zkontrolovat s majitelkou: **Postup** a **Obvyklé podklady** (obecný popis),
-a položka časové osy **2021 – zápis podle nového znaleckého zákona**.
+Nový obsah, který je dobré zkontrolovat s majitelkou: **Postup** a **Obvyklé podklady** (obecný popis),
+položka časové osy **2021 – zápis podle nového znaleckého zákona**, jednověté vysvětlivky u šesti řádků v sekci
+**Služby** (rozbalovací řádky) a citát v pásu s fotkou Dolních Vítkovic (oceňovací předpis vs. tržní způsob).
 
 ## QR platba
 
-V sekci Kontakt je QR Platba (český standard SPAYD) pro účet 27-2489420287/0100 (IBAN CZ67 0100 0000 2724 8942 0287)
+V sekci Kontakt je QR platba (český standard SPAYD) pro účet 27-2489420287/0100 (IBAN CZ67 0100 0000 2724 8942 0287)
 s příjemcem „ING. JANA MACHOVA“ a zprávou „ZNALECKY POSUDEK“; částku a variabilní symbol doplní plátce.
 Při změně účtu nebo textu se kód přegeneruje jedním příkazem:
 
@@ -75,6 +78,7 @@ pip install segno
 python3 tools/make-qr.py 19-2000145399/0800        # číslo účtu/kód banky, nebo rovnou IBAN CZ…
 ```
 
-Skript přepočítá IBAN, vygeneruje nový QR kód přímo do `index.html` a doplní číslo účtu do textu.
-Volitelně `--msg "TEXT PRO PRIJEMCE"` a `--rn "JMENO PRIJEMCE"`. Fakturační údaje (IČ, DIČ) jsou v `index.html`
-v bloku `pay__billing` a v JSON-LD (`taxID`, `vatID`).
+Skript přepočítá IBAN, vygeneruje nový QR kód přímo do `index.html`, doplní číslo účtu do textu a do tlačítek
+„Kopírovat číslo účtu“ / „Kopírovat IBAN“. Volitelně `--msg "TEXT PRO PRIJEMCE"` a `--rn "JMENO PRIJEMCE"`.
+Fakturační údaje (IČO, DIČ) jsou v `index.html` v bloku `pay__billing`; v JSON-LD je jen IČO (`taxID`) – DIČ fyzické
+osoby obsahuje rodné číslo, proto se strojově čitelně nezveřejňuje.
