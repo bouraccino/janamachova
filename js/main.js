@@ -139,6 +139,34 @@
     });
   });
 
+  /* ---------- light / dark toggle ---------- */
+  var toggle = document.getElementById('themeToggle');
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function currentTheme() {
+    var set = html.getAttribute('data-theme');
+    if (set === 'dark' || set === 'light') return set;
+    return (darkQuery && darkQuery.matches) ? 'dark' : 'light';
+  }
+  function applyThemeMeta() {
+    var meta = document.getElementById('themeColor');
+    if (meta) { meta.setAttribute('content', currentTheme() === 'dark' ? '#121214' : '#ece8e1'); meta.removeAttribute('media'); }
+    if (toggle) toggle.setAttribute('aria-label', currentTheme() === 'dark' ? 'Přepnout světlý režim' : 'Přepnout tmavý režim');
+  }
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      applyThemeMeta();
+    });
+    applyThemeMeta();
+    if (darkQuery) {
+      var onScheme = function () { applyThemeMeta(); };
+      if (darkQuery.addEventListener) darkQuery.addEventListener('change', onScheme);
+      else if (darkQuery.addListener) darkQuery.addListener(onScheme);
+    }
+  }
+
   /* ---------- footer year ---------- */
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());

@@ -63,3 +63,16 @@ V sekci Kontakt je vložená mapa Google (iframe bez API klíče). Načítá se 
 pokud by to vadilo, stačí iframe nahradit odkazem, který je pod mapou.
 Nové sekce, které je dobré zkontrolovat s majitelkou: **Postup** a **Obvyklé podklady** (obecný popis),
 a položka časové osy **2021 – zápis podle nového znaleckého zákona**.
+
+## QR platba
+
+V sekci Kontakt je QR Platba (český standard SPAYD). V repozitáři je zatím **vzor s neplatným IBAN** – bankovní
+aplikace ho odmítnou, nikdo tedy omylem nezaplatí. Skutečné číslo účtu se vloží jedním příkazem:
+
+```sh
+pip install segno
+python3 tools/make-qr.py 19-2000145399/0800        # číslo účtu/kód banky, nebo rovnou IBAN CZ…
+```
+
+Skript přepočítá IBAN, vygeneruje nový QR kód přímo do `index.html`, doplní číslo účtu do textu a odstraní
+štítek „VZOR“. Volitelně `--msg "TEXT PRO PRIJEMCE"`.
