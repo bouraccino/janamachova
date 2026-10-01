@@ -14,7 +14,7 @@ index.html        celý web (jedna stránka s kotvami)
 css/style.css     styly
 css/fonts.css     @font-face pro lokálně hostovaná písma
 fonts/            Archivo, Instrument Serif, IBM Plex Mono (woff2, latin + latin-ext)
-img/              fotky Ostravy v několika velikostech (WebP) + og-image.jpg pro sdílení
+img/              fotky Ostravy v několika velikostech (WebP), portrét jana-machova-400.webp, og-image.jpg pro sdílení
 js/main.js        animace, mobilní menu, parallax, kopírování kontaktů (web funguje i bez JS)
 CNAME             doména pro GitHub Pages
 robots.txt

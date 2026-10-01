@@ -405,7 +405,7 @@ section { scroll-margin-top: var(--header-h); }
 .intro__portrait[hidden] { display: none; }
 .intro__portrait {
   position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px;
-  background-size: cover; background-position: center; max-width: 440px; justify-self: end; width: 100%;
+  background-size: cover; background-position: center; max-width: 400px; justify-self: end; width: 100%;
 }
 .intro__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
 .intro__portrait figcaption {
@@ -415,7 +415,7 @@ section { scroll-margin-top: var(--header-h); }
 }
 @media (max-width: 860px) {
   .intro__grid { grid-template-columns: 1fr; }
-  .intro__portrait { justify-self: start; max-width: 420px; }
+  .intro__portrait { justify-self: start; max-width: 360px; }
 }
 .statement {
   margin-top: 26px;
