@@ -135,6 +135,33 @@
   }
   counters.forEach(function (el) { el.textContent = String(targetFor(el)); });
 
+  /* ---------- digit scramble: numbers spin fast and settle on the real value ---------- */
+  var scrambles = [].slice.call(document.querySelectorAll('[data-scramble]'));
+  function runScramble(el) {
+    var final = el.textContent;
+    if (reduceMotion || !/\d/.test(final)) return;
+    var digits = [], i;
+    for (i = 0; i < final.length; i++) if (/\d/.test(final[i])) digits.push(i);
+    var dur = 700 + digits.length * 60, start = null;
+    el.style.fontVariantNumeric = 'tabular-nums';
+    function frame(ts) {
+      if (start === null) start = ts;
+      var t = Math.min(1, (ts - start) / dur);
+      var settled = Math.floor(t * digits.length + 0.0001);
+      var out = final.split('');
+      for (var k = settled; k < digits.length; k++) out[digits[k]] = String(Math.floor(Math.random() * 10));
+      el.textContent = out.join('');
+      if (t < 1) window.requestAnimationFrame(frame); else el.textContent = final;
+    }
+    window.requestAnimationFrame(frame);
+  }
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { runScramble(en.target); sio.unobserve(en.target); } });
+    }, { threshold: 0.5 });
+    scrambles.forEach(function (el) { sio.observe(el); });
+  }
+
   /* ---------- copy buttons ---------- */
   var canCopy = !!(navigator.clipboard && navigator.clipboard.writeText);
   [].slice.call(document.querySelectorAll('.copy')).forEach(function (btn) {
