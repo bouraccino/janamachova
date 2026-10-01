@@ -36,7 +36,7 @@ a = ap.parse_args()
 import segno
 iban = to_iban(a.account)
 payload = f'SPD*1.0*ACC:{iban}*RN:{a.rn[:35].upper()}*CC:CZK*MSG:{a.msg[:60].upper()}'
-svg = segno.make(payload, error='m').svg_inline(scale=1, dark='#121214', light=None, omitsize=True, svgclass=None, lineclass=None)
+svg = segno.make(payload, error='m').svg_inline(scale=1, dark='#121214', finder_dark='#8f5a1c', light=None, omitsize=True, svgclass=None, lineclass=None)
 svg = svg.replace('<svg ', '<svg role="img" aria-label="QR platba: ' + iban + '" ', 1)
 
 html = open(a.file, encoding='utf-8').read()
