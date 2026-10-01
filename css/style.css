@@ -690,15 +690,31 @@ a.contact__value:hover { color: var(--accent-text); }
 :root[data-theme="dark"] .pay__qr { --qr-tile: #0e0e10; --qr-dark: #ece8e1; --qr-finder: #d89b4a; --qr-line: rgba(241, 238, 232, .14); }
 /* hover or a click switches the tile to the light version, which every scanner reads */
 :root .pay__qr:hover, :root .pay__qr.is-light { --qr-tile: #ece8e1; --qr-dark: #121214; --qr-finder: #8f5a1c; --qr-line: rgba(20, 20, 22, .14); }
-.pay__qr { cursor: pointer; transition: background-color .35s var(--ease); }
+.pay__qr { transition: background-color .35s var(--ease); }
 .pay__qr path { transition: stroke .35s var(--ease); }
+/* the hint and the click only matter in dark mode, where the code is inverted */
 .pay__qr::before {
-  content: "klepnutím zůstane světlý"; position: absolute; left: 50%; top: 6px; transform: translateX(-50%);
+  position: absolute; left: 50%; top: 6px; transform: translateX(-50%);
   font-family: var(--font-mono); font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; color: var(--qr-finder); opacity: 0; transition: opacity .3s var(--ease); white-space: nowrap;
 }
-.pay__qr:hover::before { opacity: .8; }
-.pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; opacity: .8; }
-@media (hover: none) { .pay__qr::before { content: "klepnutím přepnete světlou verzi"; opacity: .7; } .pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pay__qr { cursor: pointer; }
+  :root:not([data-theme="light"]) .pay__qr::before { content: "klepnutím zůstane světlý"; }
+  :root:not([data-theme="light"]) .pay__qr:hover::before, :root:not([data-theme="light"]) .pay__qr.is-light::before { opacity: .8; }
+  :root:not([data-theme="light"]) .pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; }
+}
+:root[data-theme="dark"] .pay__qr { cursor: pointer; }
+:root[data-theme="dark"] .pay__qr::before { content: "klepnutím zůstane světlý"; }
+:root[data-theme="dark"] .pay__qr:hover::before, :root[data-theme="dark"] .pay__qr.is-light::before { opacity: .8; }
+:root[data-theme="dark"] .pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; }
+@media (hover: none) {
+  :root[data-theme="dark"] .pay__qr::before { content: "klepnutím přepnete světlou verzi"; opacity: .7; }
+  :root[data-theme="dark"] .pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; }
+}
+@media (hover: none) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pay__qr::before { content: "klepnutím přepnete světlou verzi"; opacity: .7; }
+  :root:not([data-theme="light"]) .pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; }
+}
 .pay__qr::after {
   content: "QR PLATBA · CZK";
   position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);

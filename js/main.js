@@ -182,7 +182,10 @@
   if (qr) {
     qr.setAttribute('role', 'button'); qr.setAttribute('tabindex', '0'); qr.setAttribute('aria-pressed', 'false');
     qr.setAttribute('aria-label', 'Přepnout světlou verzi QR kódu');
-    var flip = function () { var on = qr.classList.toggle('is-light'); qr.setAttribute('aria-pressed', on ? 'true' : 'false'); };
+    var flip = function () {
+      if (currentTheme() !== 'dark') return; /* in light mode the code is already light */
+      var on = qr.classList.toggle('is-light'); qr.setAttribute('aria-pressed', on ? 'true' : 'false');
+    };
     qr.addEventListener('click', flip);
     qr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
   }
