@@ -127,13 +127,34 @@
   window.addEventListener('resize', onScroll);
   onParallax();
 
-  /* ---------- counters ---------- */
+  /* ---------- counters: 0 → value, spins up when scrolled into view ---------- */
   var counters = [].slice.call(document.querySelectorAll('[data-count]'));
   function targetFor(el) {
     if (el.getAttribute('data-count') === 'years') return Math.max(25, new Date().getFullYear() - 2000);
     return parseInt(el.getAttribute('data-count'), 10) || 0;
   }
-  counters.forEach(function (el) { el.textContent = String(targetFor(el)); });
+  function runCounter(el) {
+    var target = targetFor(el);
+    if (reduceMotion) { el.textContent = String(target); return; }
+    var start = null, dur = 1900;
+    el.textContent = '0';
+    function step(ts) {
+      if (start === null) start = ts;
+      var t = Math.min(1, (ts - start) / dur);
+      var eased = 1 - Math.pow(1 - t, 2.2);
+      el.textContent = String(Math.round(eased * target));
+      if (t < 1) window.requestAnimationFrame(step); else el.textContent = String(target);
+    }
+    window.requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { runCounter(en.target); cio.unobserve(en.target); } });
+    }, { threshold: 0.3 });
+    counters.forEach(function (el) { cio.observe(el); });
+  } else {
+    counters.forEach(function (el) { el.textContent = String(targetFor(el)); });
+  }
 
   /* ---------- digit scramble: numbers spin fast and settle on the real value ---------- */
   var scrambles = [].slice.call(document.querySelectorAll('[data-scramble]'));
