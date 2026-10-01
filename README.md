@@ -54,6 +54,10 @@ a otevřít http://localhost:8080/.
 
 ## Poznámky k obsahu
 
-Převzato z původního webu: úvod, představení, profil, kontakt a čtyři články.
+Převzato z původního webu: úvod, představení, profil a kontakt. Články z tisku byly na přání majitelky vynechány,
+stejně jako zmínka o budově katastrálního úřadu.
+
+V sekci Kontakt je vložená mapa Google (iframe bez API klíče). Načítá se z google.com, tedy s cookies Googlu –
+pokud by to vadilo, stačí iframe nahradit odkazem, který je pod mapou.
 Nové sekce, které je dobré zkontrolovat s majitelkou: **Postup** a **Obvyklé podklady** (obecný popis),
 a položka časové osy **2021 – zápis podle nového znaleckého zákona**.

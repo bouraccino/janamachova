@@ -22,7 +22,7 @@
 <link rel="preload" href="fonts/archivo-normal-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
-<script>document.documentElement.classList.add('js');</script>
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.add('is-ready','is-done');},2500);</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -66,7 +66,6 @@
       <a href="#sluzby">Služby</a>
       <a href="#postup">Postup</a>
       <a href="#profil">Profil</a>
-      <a href="#clanky">Články</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
     <a class="header__cta" href="tel:+420604163806">+420 604 163 806</a>
@@ -82,8 +81,7 @@
     <a href="#sluzby"><small>01</small>Služby</a>
     <a href="#postup"><small>02</small>Postup</a>
     <a href="#profil"><small>03</small>Profil</a>
-    <a href="#clanky"><small>04</small>Články</a>
-    <a href="#kontakt"><small>05</small>Kontakt</a>
+    <a href="#kontakt"><small>04</small>Kontakt</a>
   </nav>
   <div class="menu__contact">
     <a href="tel:+420604163806">+420 604 163 806</a>
@@ -116,7 +114,7 @@
     </div>
 
     <div class="hero__foot" data-reveal style="--d:4">
-      <span>Ostrava-Poruba · budova katastrálního úřadu</span>
+      <span>Alšova 522/13 · Ostrava-Poruba</span>
       <span class="hero__foot-mid">Působnost celá Česká republika</span>
       <a class="hero__scroll" href="#uvod">Posunout dolů <span aria-hidden="true">↓</span></a>
     </div>
@@ -338,73 +336,6 @@
     </div>
   </section>
 
-  <!-- ===== ARTICLES ===== -->
-  <section class="articles theme-light theme-light--alt" id="clanky">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow" data-reveal>Články</p>
-          <h2 class="h2" data-reveal style="--d:1">Z&nbsp;praxe a&nbsp;z&nbsp;<em>tisku</em></h2>
-        </div>
-        <p class="section-head__text" data-reveal style="--d:2">Vybrané texty k&nbsp;oceňování, daním a&nbsp;znaleckému právu, které se hodí znát před prodejem, dědictvím nebo koupí nemovitosti.</p>
-      </div>
-
-      <div class="articles__grid">
-        <details class="article" data-reveal>
-          <summary>
-            <h3 class="article__title">Koupi nemovitosti komplikují skryté vady</h3>
-            <p class="article__excerpt">Zájemců o&nbsp;koupi je víc než nabídek a&nbsp;kupující se rozhodují ve spěchu. Skryté vady se pak ukážou, až když je pozdě.</p>
-            <span class="article__toggle" aria-hidden="true"><span class="article__toggle-text">Číst článek</span><span class="article__toggle-icon"></span></span>
-          </summary>
-          <div class="article__body">
-            <p>Zájemců o&nbsp;koupi nemovitosti je v&nbsp;současnosti výrazně více než těch, kdo nemovitost nabízejí. Kupující tak mají často pocit, že se musí rozhodnout okamžitě, bez důkladné prohlídky. Skryté vady se objeví, až když už může být pozdě.</p>
-            <p>Někteří kupující ve spěchu dokonce podepíší, že jsou seznámeni se skutečným stavem nemovitosti, přestože nikdy nedostali žádný záznam o&nbsp;technickém stavu stavby.</p>
-            <p>Před podpisem smlouvy je proto vhodné poradit se s&nbsp;odborníkem na technický stav budov, který dokáže skryté vady odhalit. Laik nemá při běžné prohlídce šanci všechny vady rozpoznat. Prohlídka s&nbsp;technikem nebo specializovanou firmou výrazně omezí pozdější problémy.</p>
-            <p class="article__source">Převzato z&nbsp;Novinky.cz, rubrika Finance.</p>
-          </div>
-        </details>
-
-        <details class="article" data-reveal style="--d:1">
-          <summary>
-            <h3 class="article__title">Ceny bytů a&nbsp;domů podle regionu a&nbsp;velikosti obce</h3>
-            <p class="article__excerpt">Byty jsou nejlevnější v&nbsp;Ústeckém kraji, v&nbsp;Praze stojí dvojnásobek republikového průměru. Data ČSÚ.</p>
-            <span class="article__toggle" aria-hidden="true"><span class="article__toggle-text">Číst článek</span><span class="article__toggle-icon"></span></span>
-          </summary>
-          <div class="article__body">
-            <p>Ceny bytů zajímají především obyvatele měst. Článek ale sleduje i&nbsp;ceny pohodlného venkovského bydlení, vhodného pro víkendy, rodinný život nebo klidný důchod. Vychází z&nbsp;údajů Českého statistického úřadu.</p>
-            <p><strong>Byty.</strong> Nejlevnější byty jsou v&nbsp;Ústeckém kraji, který má zároveň nejvyšší nezaměstnanost v&nbsp;republice. Průměrná cena bytu v&nbsp;Praze dosáhla dvojnásobku celostátního průměru (45&nbsp;041&nbsp;Kč/m²) a&nbsp;v&nbsp;Praze&nbsp;1 více než trojnásobku (65&nbsp;273&nbsp;Kč/m²).</p>
-            <p><strong>Rodinné domy.</strong> Průměrná kupní cena rodinného domu v&nbsp;ČR byla 2&nbsp;578&nbsp;Kč/m³, v&nbsp;Praze více než trojnásobek, 8&nbsp;006&nbsp;Kč/m³. Cena výrazně závisí jak na kraji, tak na velikosti obce.</p>
-            <p class="article__source">Zdroj dat: Český statistický úřad.</p>
-          </div>
-        </details>
-
-        <details class="article" data-reveal style="--d:2">
-          <summary>
-            <h3 class="article__title">Nový znalecký zákon – co se povedlo a&nbsp;co méně</h3>
-            <p class="article__excerpt">Zákon č.&nbsp;254/2019 Sb. zpřesnil náležitosti posudků a&nbsp;dohled nad znalci, odměny znalců ale nezvýšil.</p>
-            <span class="article__toggle" aria-hidden="true"><span class="article__toggle-text">Číst článek</span><span class="article__toggle-icon"></span></span>
-          </summary>
-          <div class="article__body">
-            <p><strong>Co se povedlo.</strong> Podrobněji jsou stanoveny formální i&nbsp;obsahové náležitosti znaleckých posudků, což byla dříve kritizovaná oblast. Ministerstvo spravedlnosti převzalo dohled nad znaleckou činností v&nbsp;plném rozsahu a&nbsp;vede nový seznam znalců. Rozšířil se okruh přestupků, za které lze znalci uložit pokutu až 500&nbsp;000&nbsp;Kč.</p>
-            <p><strong>Co méně.</strong> Zákon nezměnil trend poklesu počtu znalců. Pokud se odměny znalců nezvýší, může být dotčeno právo na spravedlivý proces. Prováděcí vyhlášky nesplnily očekávání ohledně zvýšení vyhláškové odměny, došlo jen ke kosmetickým úpravám. Možnost vykonávat činnost ve více oborech je v&nbsp;rozporu se základní filozofií zákona, který vylučuje duplicitní působení znalců.</p>
-          </div>
-        </details>
-
-        <details class="article" data-reveal style="--d:3">
-          <summary>
-            <h3 class="article__title">Zrušené daně dědická a&nbsp;darovací</h3>
-            <p class="article__excerpt">Od roku 2014 dědická ani darovací daň neexistuje. Opravdu se nic neplatí?</p>
-            <span class="article__toggle" aria-hidden="true"><span class="article__toggle-text">Číst článek</span><span class="article__toggle-icon"></span></span>
-          </summary>
-          <div class="article__body">
-            <p><strong>Dědictví.</strong> Od roku 2014 dědická daň v&nbsp;českém právu neexistuje. Veškeré příjmy získané děděním jsou osvobozeny od daně z&nbsp;příjmů a&nbsp;neuvádějí se v&nbsp;daňovém přiznání. Dědicům však zůstává povinnost uhradit odměnu notáři jako soudnímu komisaři, která se odvíjí od hodnoty pozůstalosti, tedy i&nbsp;od ocenění nemovitostí.</p>
-            <p><strong>Darování.</strong> Darovací daň formálně také zanikla, dary jsou ale zdaňovány jako příjem. Osvobození platí zejména pro dary mezi příbuznými v&nbsp;přímé a&nbsp;vedlejší linii a&nbsp;osobami žijícími ve společné domácnosti. V&nbsp;ostatních případech je třeba dar zdanit a&nbsp;při darování nemovitosti se vychází z&nbsp;jejího ocenění.</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== CONTACT ===== -->
   <section class="contact theme-dark" id="kontakt">
     <div class="container">
@@ -430,10 +361,17 @@
         <div class="contact__item" data-reveal style="--d:2">
           <span class="contact__label">Kancelář</span>
           <address class="contact__value contact__value--sm">Alšova 522/13<br>708 00 Ostrava – Poruba</address>
-          <span class="contact__note">budova Katastrálního úřadu, dveře č.&nbsp;105</span>
-          <a class="contact__map" href="https://mapy.cz/zakladni?q=Al%C5%A1ova%20522%2F13%2C%20Ostrava-Poruba" target="_blank" rel="noopener">Otevřít na Mapy.cz <span aria-hidden="true">↗</span></a>
+          <span class="contact__links"><a class="contact__map" href="https://www.google.com/maps/search/?api=1&amp;query=Al%C5%A1ova%20522%2F13%2C%20708%2000%20Ostrava-Poruba" target="_blank" rel="noopener">Google Maps <span aria-hidden="true">↗</span></a><a class="contact__map" href="https://mapy.cz/zakladni?q=Al%C5%A1ova%20522%2F13%2C%20Ostrava-Poruba" target="_blank" rel="noopener">Mapy.cz <span aria-hidden="true">↗</span></a></span>
         </div>
       </div>
+
+      <figure class="contact__embed" data-reveal>
+        <iframe src="https://www.google.com/maps?q=Al%C5%A1ova%20522%2F13%2C%20708%2000%20Ostrava-Poruba&amp;z=16&amp;hl=cs&amp;output=embed" title="Mapa: Alšova 522/13, Ostrava-Poruba" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <figcaption class="contact__embed-caption">
+          <span>Alšova 522/13, 708 00 Ostrava – Poruba</span>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Al%C5%A1ova%20522%2F13%2C%20708%2000%20Ostrava-Poruba" target="_blank" rel="noopener">Navigovat <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
     </div>
   </section>
 </main>
