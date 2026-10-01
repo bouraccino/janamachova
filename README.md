@@ -1,3 +1,5 @@
+Toto repo delala cele Ajka a dal jsem ho verejne, jenom proto, abych mel pages zdarma. Nic zajimaveho tady nehledejte...
+
 # janamachova.cz
 
 Web Ing. Jany Machové, soudní znalkyně pro obor ekonomika, odvětví ceny a odhady nemovitostí (Ostrava).
