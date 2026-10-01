@@ -177,6 +177,16 @@
     }
   }
 
+  /* ---------- QR tile: click keeps the light (universally scannable) version ---------- */
+  var qr = document.querySelector('.pay__qr');
+  if (qr) {
+    qr.setAttribute('role', 'button'); qr.setAttribute('tabindex', '0'); qr.setAttribute('aria-pressed', 'false');
+    qr.setAttribute('aria-label', 'Přepnout světlou verzi QR kódu');
+    var flip = function () { var on = qr.classList.toggle('is-light'); qr.setAttribute('aria-pressed', on ? 'true' : 'false'); };
+    qr.addEventListener('click', flip);
+    qr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+  }
+
   /* ---------- footer year ---------- */
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());

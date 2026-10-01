@@ -688,6 +688,17 @@ a.contact__value:hover { color: var(--accent-text); }
   :root:not([data-theme="light"]) .pay__qr { --qr-tile: #0e0e10; --qr-dark: #ece8e1; --qr-finder: #d89b4a; --qr-line: rgba(241, 238, 232, .14); }
 }
 :root[data-theme="dark"] .pay__qr { --qr-tile: #0e0e10; --qr-dark: #ece8e1; --qr-finder: #d89b4a; --qr-line: rgba(241, 238, 232, .14); }
+/* hover or a click switches the tile to the light version, which every scanner reads */
+:root .pay__qr:hover, :root .pay__qr.is-light { --qr-tile: #ece8e1; --qr-dark: #121214; --qr-finder: #8f5a1c; --qr-line: rgba(20, 20, 22, .14); }
+.pay__qr { cursor: pointer; transition: background-color .35s var(--ease); }
+.pay__qr path { transition: stroke .35s var(--ease); }
+.pay__qr::before {
+  content: "klepnutím zůstane světlý"; position: absolute; left: 50%; top: 6px; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; color: var(--qr-finder); opacity: 0; transition: opacity .3s var(--ease); white-space: nowrap;
+}
+.pay__qr:hover::before { opacity: .8; }
+.pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; opacity: .8; }
+@media (hover: none) { .pay__qr::before { content: "klepnutím přepnete světlou verzi"; opacity: .7; } .pay__qr.is-light::before { content: "světlá verze · klepnutím zpět"; } }
 .pay__qr::after {
   content: "QR PLATBA · CZK";
   position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
@@ -717,6 +728,25 @@ a.contact__value:hover { color: var(--accent-text); }
   font-family: var(--font-mono); font-size: .74rem; letter-spacing: .04em;
 }
 .footer__top { color: var(--fg); }
+
+/* ---------- light sweeps: a soft beam crosses the photos every ~14 s ---------- */
+.hero__media::before, .band__media::before, .profile__media::before, .intro__portrait::before, .pay__qr .sweep {
+  content: ""; position: absolute; inset: -20% -40%; z-index: 1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 240, 215, .10) 49%, rgba(255, 240, 215, .16) 50%, rgba(255, 240, 215, .10) 51%, transparent 58%);
+  transform: translateX(-70%);
+  animation: sweep 14s linear infinite;
+}
+.band__media::before { animation-delay: 4s; }
+.profile__media::before { animation-delay: 7s; }
+.intro__portrait::before { animation-delay: 9s; }
+@keyframes sweep {
+  0% { transform: translateX(-70%); }
+  14% { transform: translateX(70%); }
+  100% { transform: translateX(70%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__media::before, .band__media::before, .profile__media::before, .intro__portrait::before { animation: none; display: none; }
+}
 
 /* ---------- reveal / media fades ---------- */
 .js [data-reveal] {
