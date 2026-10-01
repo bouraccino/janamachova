@@ -66,13 +66,15 @@ a položka časové osy **2021 – zápis podle nového znaleckého zákona**.
 
 ## QR platba
 
-V sekci Kontakt je QR Platba (český standard SPAYD). V repozitáři je zatím **vzor s neplatným IBAN** – bankovní
-aplikace ho odmítnou, nikdo tedy omylem nezaplatí. Skutečné číslo účtu se vloží jedním příkazem:
+V sekci Kontakt je QR Platba (český standard SPAYD) pro účet 27-2489420287/0100 (IBAN CZ67 0100 0000 2724 8942 0287)
+s příjemcem „ING. JANA MACHOVA“ a zprávou „ZNALECKY POSUDEK“; částku a variabilní symbol doplní plátce.
+Při změně účtu nebo textu se kód přegeneruje jedním příkazem:
 
 ```sh
 pip install segno
 python3 tools/make-qr.py 19-2000145399/0800        # číslo účtu/kód banky, nebo rovnou IBAN CZ…
 ```
 
-Skript přepočítá IBAN, vygeneruje nový QR kód přímo do `index.html`, doplní číslo účtu do textu a odstraní
-štítek „VZOR“. Volitelně `--msg "TEXT PRO PRIJEMCE"`.
+Skript přepočítá IBAN, vygeneruje nový QR kód přímo do `index.html` a doplní číslo účtu do textu.
+Volitelně `--msg "TEXT PRO PRIJEMCE"` a `--rn "JMENO PRIJEMCE"`. Fakturační údaje (IČ, DIČ) jsou v `index.html`
+v bloku `pay__billing` a v JSON-LD (`taxID`, `vatID`).

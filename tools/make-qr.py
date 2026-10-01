@@ -29,12 +29,13 @@ def group4(s: str) -> str:
 ap = argparse.ArgumentParser()
 ap.add_argument('account')
 ap.add_argument('--msg', default='ZNALECKY POSUDEK')
+ap.add_argument('--rn', default='ING. JANA MACHOVA', help='jméno příjemce (max 35 znaků, bez diakritiky)')
 ap.add_argument('--file', default='index.html')
 a = ap.parse_args()
 
 import segno
 iban = to_iban(a.account)
-payload = f'SPD*1.0*ACC:{iban}*CC:CZK*MSG:{a.msg[:60].upper()}'
+payload = f'SPD*1.0*ACC:{iban}*RN:{a.rn[:35].upper()}*CC:CZK*MSG:{a.msg[:60].upper()}'
 svg = segno.make(payload, error='m').svg_inline(scale=1, dark='#121214', light=None, omitsize=True, svgclass=None, lineclass=None)
 svg = svg.replace('<svg ', '<svg role="img" aria-label="QR Platba: ' + iban + '" ', 1)
 

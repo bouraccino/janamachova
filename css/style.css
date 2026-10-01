@@ -396,6 +396,27 @@ section { scroll-margin-top: var(--header-h); }
 
 /* ---------- intro ---------- */
 .intro { padding-block: var(--section); }
+.intro__grid {
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
+  gap: clamp(28px, 5vw, 80px); align-items: center;
+}
+.intro__text { min-width: 0; }
+.intro__grid:has(.intro__portrait[hidden]) { grid-template-columns: 1fr; }
+.intro__portrait[hidden] { display: none; }
+.intro__portrait {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px;
+  background-size: cover; background-position: center; max-width: 440px; justify-self: end; width: 100%;
+}
+.intro__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.intro__portrait figcaption {
+  position: absolute; left: 16px; bottom: 14px;
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(241, 238, 232, .9);
+  background: rgba(18, 18, 20, .5); padding: 6px 10px; border-radius: 999px; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+@media (max-width: 860px) {
+  .intro__grid { grid-template-columns: 1fr; }
+  .intro__portrait { justify-self: start; max-width: 420px; }
+}
 .statement {
   margin-top: 26px;
   font-size: clamp(1.45rem, 3vw, 2.7rem);
@@ -636,6 +657,10 @@ a.contact__value:hover { color: var(--accent-text); }
   width: clamp(168px, 20vw, 232px); height: auto; justify-self: end;
 }
 .pay__qr img, .pay__qr svg { width: 100%; height: auto; display: block; }
+.pay__billing { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px 20px; }
+.pay__billing dt { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.pay__billing dd { font-size: .95rem; margin-top: 4px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .pay__billing { grid-template-columns: 1fr; } }
 .pay__hint { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
 .pay__sample { display: inline-block; margin-left: 10px; padding: 3px 8px; border-radius: 999px; background: var(--accent); color: #121214; font-weight: 500; }
 @media (max-width: 640px) {
