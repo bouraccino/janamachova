@@ -61,8 +61,8 @@ a otevřít http://localhost:8080/.
 Převzato z původního webu: úvod, představení, profil a kontakt. Články z tisku byly na přání majitelky vynechány,
 stejně jako zmínka o budově katastrálního úřadu.
 
-V sekci Kontakt je vložená mapa Google (iframe bez API klíče). Načítá se z google.com, tedy s cookies Googlu –
-pokud by to vadilo, stačí iframe nahradit odkazem, který je pod mapou.
+Na přání majitelky není v kontaktu adresa kanceláře ani mapa (schůzky probíhají podle domluvy); adresa je jen
+ve fakturačních údajích u QR platby. Služby Exekuce a dražby a Insolvenční řízení byly vypuštěny.
 Nový obsah, který je dobré zkontrolovat s majitelkou: **Postup** a **Obvyklé podklady** (obecný popis),
 položka časové osy **2021 – zápis podle nového znaleckého zákona**, jednověté vysvětlivky u šesti řádků v sekci
 **Služby** (rozbalovací řádky) a citát v pásu s fotkou Dolních Vítkovic (oceňovací předpis vs. tržní způsob).
