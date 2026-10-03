@@ -244,7 +244,6 @@ section, footer {
 .brand__name { font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
 .brand__role { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: #8db1f0; margin-top: 3px; }
 .header.is-scrolled .brand__role, .menu-open .header .brand__role { color: var(--accent-text); }
-.header.is-scrolled .brand__role, .menu-open .brand__role { color: inherit; }
 .nav { display: flex; gap: clamp(18px, 2.4vw, 36px); margin-left: auto; }
 .nav a {
   font-size: .95rem; font-weight: 500; padding-block: 6px;
