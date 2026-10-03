@@ -13,7 +13,7 @@ index.html        celý web (jedna stránka s kotvami)
 404.html          chybová stránka
 css/style.css     styly
 css/fonts.css     @font-face pro lokálně hostovaná písma
-fonts/            IBM Plex Sans (variable 100–700), IBM Plex Mono 400/500, IBM Plex Serif Italic 400 (woff2, latin + latin-ext)
+fonts/            IBM Plex Sans (variable 100–700), IBM Plex Mono 400/500 (woff2, latin + latin-ext)
 img/icon.svg, img/apple-touch-icon.png, img/icon-192.png, favicon.ico   ikony webu
 img/              fotky Ostravy v několika velikostech (WebP), portrét jana-machova-400.webp, og-image.jpg pro sdílení
 js/main.js        animace, mobilní menu, parallax, kopírování kontaktů (web funguje i bez JS)
@@ -24,9 +24,9 @@ robots.txt
 ## Úprava obsahu
 
 Veškerý text je přímo v `index.html`, sekce jsou označené komentáři (`<!-- ===== HERO ===== -->` atd.).
-Telefon, e‑mail a adresa jsou v hlavičce, v hero, v mobilním menu, v sekci Kontakt, ve fakturačních údajích v kartě
-Platba, v JSON-LD (`<script type="application/ld+json">` v hlavičce) a v `<meta name="description">` – při změně upravte
-všechna místa (nebo vyhledejte `604 163 806`, `volny.cz`, `Alšova`).
+Telefon a e‑mail jsou v hlavičce, v hero, v mobilním menu, v sekci Kontakt, v JSON-LD (`<script type="application/ld+json">`
+v hlavičce) a v `<meta name="description">`; adresa je pouze ve fakturačních údajích v kartě Platba (blok `pay__billing`) –
+při změně upravte všechna místa (nebo vyhledejte `604 163 806`, `volny.cz`, `Alšova`).
 
 Fotky: nahraďte soubory v `img/` stejnými názvy, nebo upravte `srcset` u příslušného `<img>`.
 
@@ -64,8 +64,9 @@ stejně jako zmínka o budově katastrálního úřadu.
 Na přání majitelky není v kontaktu adresa kanceláře ani mapa (schůzky probíhají podle domluvy); adresa je jen
 ve fakturačních údajích u QR platby. Služby Exekuce a dražby a Insolvenční řízení byly vypuštěny.
 Nový obsah, který je dobré zkontrolovat s majitelkou: **Postup** a **Obvyklé podklady** (obecný popis),
-položka časové osy **2021 – zápis podle nového znaleckého zákona**, jednověté vysvětlivky u šesti řádků v sekci
-**Služby** (rozbalovací řádky) a citát v pásu s fotkou Dolních Vítkovic (oceňovací předpis vs. tržní způsob).
+položka časové osy **2021 – zápis podle nového znaleckého zákona**, jednověté vysvětlivky u řádků 01, 03 a 04 v sekci
+**Služby** (rozbalovací řádky; text řádku 02 dodala majitelka) a citát v pásu s fotkou Dolních Vítkovic (oceňovací předpis
+vs. tržní způsob).
 
 ## QR platba
 
