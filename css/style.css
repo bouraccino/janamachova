@@ -209,7 +209,7 @@ section, footer {
 @keyframes loader-in { to { opacity: 1; transform: none; } }
 .is-ready .loader {
   transform: translateY(-101%);
-  transition: transform .85s var(--ease-out);
+  transition: transform 1.3s var(--ease-out);
   pointer-events: none;
 }
 .is-done .loader { display: none; }

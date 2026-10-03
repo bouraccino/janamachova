@@ -12,15 +12,15 @@
     if (ready) return;
     ready = true;
     html.classList.add('is-ready');
-    setTimeout(function () { html.classList.add('is-done'); }, 1000);
+    setTimeout(function () { html.classList.add('is-done'); }, 1500);
   }
   if (reduceMotion) {
     setReady();
   } else {
-    var minDelay = new Promise(function (r) { setTimeout(r, 400); });
+    var minDelay = new Promise(function (r) { setTimeout(r, 1500); });
     var fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     Promise.all([minDelay, fonts]).then(setReady, setReady);
-    setTimeout(setReady, 2200); /* hard cap, whatever happens */
+    setTimeout(setReady, 3200); /* hard cap, whatever happens */
   }
 
   /* ---------- image fade-in ---------- */
