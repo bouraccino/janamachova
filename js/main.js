@@ -12,7 +12,7 @@
     if (ready) return;
     ready = true;
     html.classList.add('is-ready');
-    setTimeout(function () { html.classList.add('is-done'); }, 1500);
+    setTimeout(function () { html.classList.add('is-done'); }, 1000);
   }
   if (reduceMotion) {
     setReady();

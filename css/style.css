@@ -209,7 +209,7 @@ section, footer {
 @keyframes loader-in { to { opacity: 1; transform: none; } }
 .is-ready .loader {
   transform: translateY(-101%);
-  transition: transform 1.3s var(--ease-out);
+  transition: transform .8s var(--ease-out);
   pointer-events: none;
 }
 .is-done .loader { display: none; }
@@ -549,6 +549,7 @@ html:not(.js) .nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
   width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto;
   padding-block: clamp(28px, 5vw, 56px);
 }
+  .band__quote em { font-style: normal; font-weight: 600; color: var(--accent-text); }
 .band__quote p {
   font-size: clamp(1.3rem, 2.5vw, 2.3rem); font-weight: 500; letter-spacing: -.02em; line-height: 1.22;
   max-width: 32ch; text-wrap: pretty;
