@@ -83,3 +83,11 @@ Skript přepočítá IBAN, vygeneruje nový QR kód přímo do `index.html`, dop
 „Kopírovat číslo účtu“ / „Kopírovat IBAN“. Volitelně `--msg "TEXT PRO PRIJEMCE"` a `--rn "JMENO PRIJEMCE"`.
 Fakturační údaje (IČO, DIČ) jsou v `index.html` v bloku `pay__billing`; v JSON-LD je jen IČO (`taxID`) – DIČ fyzické
 osoby obsahuje rodné číslo, proto se strojově čitelně nezveřejňuje.
+
+## Faktury (`/invoice/`)
+
+Stránka pro vystavování faktur: formulář s živým náhledem, výstup PDF s QR platbou (SPAYD) nebo Excel (`.xlsx` se vzorci).
+Vše běží v prohlížeči, nic se neodesílá; údaje dodavatele, rozepsaná faktura a odběratelé se pamatují v `localStorage`.
+Stránka je skrytá před vyhledávači (`noindex` v hlavičce, `Disallow: /invoice` v `robots.txt`, není v `sitemap.xml`).
+Knihovny jsou uložené lokálně v `invoice/vendor/` (pdfmake 0.2.23, ExcelJS 4.4.0, qrcode-generator 2.0.4, písma IBM Plex, všechno MIT/OFL).
+Údaje dodavatele se předvyplní z fakturačních údajů webu; mění se v kartě „Dodavatel a účet“ nebo výchozí hodnoty v `invoice/invoice.js`.
