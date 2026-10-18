@@ -182,8 +182,8 @@
     if (!c.iban || !c.transfer || c.total <= 0) return '';
     var clean = function (v, max) { return ascii(v).replace(/\*/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase().slice(0, max); };
     var parts = ['SPD', '1.0', 'ACC:' + c.iban, 'AM:' + c.total.toFixed(2), 'CC:CZK'];
-    var due = parseIso(s.due);
-    if (due) parts.push('DT:' + s.due.replace(/-/g, ''));
+    // okamžitá platba (PT:IP); datum splatnosti se do QR záměrně nedává, platí se hned po naskenování
+    parts.push('PT:IP');
     var vs = (s.vs || '').replace(/\D/g, '').slice(0, 10);
     if (vs) parts.push('X-VS:' + vs);
     var msg = clean('Faktura ' + (s.number || ''), 60);
